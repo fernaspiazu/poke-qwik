@@ -30,6 +30,7 @@ lerna-debug.log*
 
 .idea
 .DS_Store
+*.iml
 *.suo
 *.ntvs*
 *.njsproj
