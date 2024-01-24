@@ -3,7 +3,7 @@ import { type DocumentHead, useNavigate } from "@builder.io/qwik-city";
 import { PokemonImage } from "~/components/pokemons/pokemon-image";
 
 export default component$(() => {
-  const pokemonId = useSignal(1); // usar para tipos primitivos (string, number, boolean, etc)
+  const pokemonId = useSignal(1); // use only for primitive types (string, number, boolean, etc)
   const showBackImage = useSignal(false);
   const isPokemonVisible = useSignal(true);
 
