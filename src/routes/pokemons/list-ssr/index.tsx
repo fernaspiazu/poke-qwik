@@ -1,16 +1,21 @@
 import { component$ } from "@builder.io/qwik";
 import { Link, type DocumentHead, routeLoader$ } from "@builder.io/qwik-city";
+import { type PokemonListResponse } from "~/interfaces";
 
 export const usePokemonList = routeLoader$(async () => {
   const response = await fetch(
-    `https://pokeapi.co/api/v2/pokemon?limit=10&offset=0`,
+    `https://pokeapi.co/api/v2/pokemon?limit=10&offset=10`,
   );
 
-  return await response.json();
+  const data = (await response.json()) as PokemonListResponse;
+
+  return data.results;
 });
 
 export default component$(() => {
   const pokemonResponse = usePokemonList();
+
+  console.log(pokemonResponse.value);
 
   return (
     <>
@@ -26,16 +31,12 @@ export default component$(() => {
       </div>
 
       <div class="mt-5 grid grid-cols-5">
-        <div class="m-5 flex flex-col items-center justify-center">Pokemon</div>
-        <div class="m-5 flex flex-col items-center justify-center">Pokemon</div>
-        <div class="m-5 flex flex-col items-center justify-center">Pokemon</div>
-        <div class="m-5 flex flex-col items-center justify-center">Pokemon</div>
-        <div class="m-5 flex flex-col items-center justify-center">Pokemon</div>
-        <div class="m-5 flex flex-col items-center justify-center">Pokemon</div>
-        <div class="m-5 flex flex-col items-center justify-center">Pokemon</div>
+        {pokemonResponse.value.map(({ name }) => (
+          <div key={name} class="m-5 flex flex-col items-center justify-center">
+            <span class="capitalize">{name}</span>
+          </div>
+        ))}
       </div>
-
-      <div>{JSON.stringify(pokemonResponse.value)}</div>
     </>
   );
 });
