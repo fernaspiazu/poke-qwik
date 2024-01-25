@@ -14,11 +14,11 @@ export const usePokemonList = routeLoader$<SmallPokemon[]>(
     const offset = Number(query.get("offset"));
 
     if (offset < 0) {
-      throw redirect(308, pathname);
+      throw redirect(301, pathname);
     }
 
     if (isNaN(offset)) {
-      throw redirect(308, pathname);
+      throw redirect(301, pathname);
     }
 
     return await getSmallPokemons(offset);
