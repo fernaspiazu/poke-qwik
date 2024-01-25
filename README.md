@@ -1,4 +1,6 @@
-# Qwik City App ⚡️
+# PokeQwik
+
+[Free Qwik Course](cursos.devtalles.com/courses/qwik-introduccion) powered by DevTalles (in Spanish) to walk through the Qwik basics.
 
 - [Qwik Docs](https://qwik.builder.io/)
 - [Discord](https://qwik.builder.io/chat)
@@ -7,6 +9,19 @@
 - [Vite](https://vitejs.dev/)
 
 ---
+
+## Usage
+
+I'm not going to teach you how to clone a repo :stuck_out_tongue_winking_eye:
+
+```shell
+# After you clone the repo, run
+npm install -g pnpm # in case you don't have pnpm
+pnpm install
+pnpm run start
+```
+
+That's it!
 
 ## Project Structure
 
