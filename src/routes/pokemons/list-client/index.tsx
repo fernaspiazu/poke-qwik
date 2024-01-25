@@ -1,4 +1,4 @@
-import { component$, useStore, useVisibleTask$ } from "@builder.io/qwik";
+import { component$, useStore, useTask$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 import { PokemonImage } from "~/components/pokemons/pokemon-image";
 import { getSmallPokemons } from "~/helpers/get-small-pokemon";
@@ -15,12 +15,20 @@ export default component$(() => {
     pokemons: [],
   });
 
-  useVisibleTask$(async ({ track }) => {
-    // used only by the client
+  // used only by the client
+  // useVisibleTask$(async ({ track }) => {
+  //   track(() => pokemonState.currentPage);
+
+  //   const pokemons = await getSmallPokemons(pokemonState.currentPage * 10);
+  //   // pokemonState.pokemons = pokemons;
+  //   pokemonState.pokemons = [...pokemonState.pokemons, ...pokemons];
+  // });
+
+  useTask$(async ({ track }) => {
     track(() => pokemonState.currentPage);
 
     const pokemons = await getSmallPokemons(pokemonState.currentPage * 10);
-    pokemonState.pokemons = pokemons;
+    pokemonState.pokemons = [...pokemonState.pokemons, ...pokemons];
   });
 
   return (
@@ -32,12 +40,12 @@ export default component$(() => {
       </div>
 
       <div class="mt-10">
-        <button
+        {/* <button
           onClick$={() => pokemonState.currentPage--}
           class="btn btn-primary mr-2"
         >
           Previous
-        </button>
+        </button> */}
         <button
           onClick$={() => pokemonState.currentPage++}
           class="btn btn-primary mr-2"
