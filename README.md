@@ -1,6 +1,6 @@
 # PokeQwik
 
-[Free Qwik Course](cursos.devtalles.com/courses/qwik-introduccion) powered by DevTalles (in Spanish) to walk through the Qwik basics.
+[Free Qwik Course](https://cursos.devtalles.com/courses/qwik-introduccion) powered by DevTalles (in Spanish) to walk through the Qwik basics.
 
 - [Qwik Docs](https://qwik.builder.io/)
 - [Discord](https://qwik.builder.io/chat)
