@@ -4,10 +4,6 @@ import { PokemonImage } from "~/components/pokemons/pokemon-image";
 import { PokemonGameContext } from "~/context";
 
 export default component$(() => {
-  // const pokemonId = useSignal(1); // use only for primitive types (string, number, boolean, etc)
-  // const showBackImage = useSignal(false);
-  // const isPokemonVisible = useSignal(true);
-
   const nav = useNavigate();
 
   const pokemonGame = useContext(PokemonGameContext);

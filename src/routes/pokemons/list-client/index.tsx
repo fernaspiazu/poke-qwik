@@ -1,43 +1,23 @@
 import {
   $,
   component$,
+  useContext,
   useOnDocument,
-  useStore,
   useTask$,
 } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 import { PokemonImage } from "~/components/pokemons/pokemon-image";
+import { PokemonListContext } from "~/context";
 import { getSmallPokemons } from "~/helpers/get-small-pokemon";
-import type { SmallPokemon } from "~/interfaces";
-
-interface PokemonPageState {
-  currentPage: number;
-  isLoading: boolean;
-  pokemons: SmallPokemon[];
-}
 
 export default component$(() => {
-  const pokemonState = useStore<PokemonPageState>({
-    currentPage: 0,
-    isLoading: false,
-    pokemons: [],
-  });
-
-  // used only by the client
-  // useVisibleTask$(async ({ track }) => {
-  //   track(() => pokemonState.currentPage);
-
-  //   const pokemons = await getSmallPokemons(pokemonState.currentPage * 10);
-  //   // pokemonState.pokemons = pokemons;
-  //   pokemonState.pokemons = [...pokemonState.pokemons, ...pokemons];
-  // });
+  const pokemonState = useContext(PokemonListContext);
 
   useTask$(async ({ track }) => {
     track(() => pokemonState.currentPage);
 
     const pokemons = await getSmallPokemons(pokemonState.currentPage * 10, 30);
     pokemonState.pokemons = [...pokemonState.pokemons, ...pokemons];
-
     pokemonState.isLoading = false;
   });
 
@@ -63,12 +43,6 @@ export default component$(() => {
       </div>
 
       <div class="mt-10">
-        {/* <button
-          onClick$={() => pokemonState.currentPage--}
-          class="btn btn-primary mr-2"
-        >
-          Previous
-        </button> */}
         <button
           onClick$={() => pokemonState.currentPage++}
           class="btn btn-primary mr-2"
