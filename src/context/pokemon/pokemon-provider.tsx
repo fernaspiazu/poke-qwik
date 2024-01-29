@@ -33,7 +33,19 @@ export const PokemonProvider = component$(() => {
   useContextProvider(PokemonListContext, pokemonList);
 
   useVisibleTask$(() => {
-    // Read from local storage
+    if (localStorage.getItem("pokemon-game")) {
+      const {
+        isPokemonVisible = true,
+        pokemonId = 10,
+        showBackImage = false,
+      } = JSON.parse(
+        localStorage.getItem("pokemon-game") || "{}",
+      ) as PokemonGameState;
+
+      pokemonGame.isPokemonVisible = isPokemonVisible;
+      pokemonGame.pokemonId = pokemonId;
+      pokemonGame.showBackImage = showBackImage;
+    }
   });
 
   useVisibleTask$(({ track }) => {
