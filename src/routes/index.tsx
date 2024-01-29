@@ -1,38 +1,43 @@
-import { $, component$, useSignal } from "@builder.io/qwik";
+import { $, component$, useContext } from "@builder.io/qwik";
 import { type DocumentHead, useNavigate } from "@builder.io/qwik-city";
 import { PokemonImage } from "~/components/pokemons/pokemon-image";
+import { PokemonGameContext } from "~/context";
 
 export default component$(() => {
-  const pokemonId = useSignal(1); // use only for primitive types (string, number, boolean, etc)
-  const showBackImage = useSignal(false);
-  const isPokemonVisible = useSignal(true);
+  // const pokemonId = useSignal(1); // use only for primitive types (string, number, boolean, etc)
+  // const showBackImage = useSignal(false);
+  // const isPokemonVisible = useSignal(true);
 
   const nav = useNavigate();
 
+  const pokemonGame = useContext(PokemonGameContext);
+
   const changePokemonId = $((value: number) => {
-    if (pokemonId.value + value <= 0) return;
-    pokemonId.value += value;
+    if (pokemonGame.pokemonId + value <= 0) return;
+    pokemonGame.pokemonId += value;
   });
 
-  const flipPokemon = $(() => (showBackImage.value = !showBackImage.value));
+  const flipPokemon = $(
+    () => (pokemonGame.showBackImage = !pokemonGame.showBackImage),
+  );
   const unveilPokemon = $(
-    () => (isPokemonVisible.value = !isPokemonVisible.value),
+    () => (pokemonGame.isPokemonVisible = !pokemonGame.isPokemonVisible),
   );
 
   const goToPokemon = $(() => {
-    nav(`/pokemon/${pokemonId.value}`);
+    nav(`/pokemon/${pokemonGame.pokemonId}`);
   });
 
   return (
     <>
       <span class="text-2xl">Buscador simple</span>
-      <span class="text-9xl">{pokemonId}</span>
+      <span class="text-9xl">{pokemonGame.pokemonId}</span>
 
       <div onClick$={() => goToPokemon()}>
         <PokemonImage
-          id={pokemonId.value}
-          backImage={showBackImage.value}
-          isVisible={isPokemonVisible.value}
+          id={pokemonGame.pokemonId}
+          backImage={pokemonGame.showBackImage}
+          isVisible={pokemonGame.isPokemonVisible}
         />
       </div>
 
@@ -53,7 +58,7 @@ export default component$(() => {
           Voltear
         </button>
         <button onClick$={() => unveilPokemon()} class="btn btn-primary mr-2">
-          {isPokemonVisible.value ? "Esconder" : "Revelar"}
+          {pokemonGame.isPokemonVisible ? "Esconder" : "Revelar"}
         </button>
       </div>
     </>
