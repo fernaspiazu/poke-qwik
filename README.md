@@ -10,6 +10,16 @@
 
 ---
 
+## Prerequisites
+
+- NodeJS v20.11.0
+
+If you use [NVM](https://github.com/nvm-sh/nvm):
+
+```bash
+nvm install
+```
+
 ## Usage
 
 I'm not going to teach you how to clone a repo :stuck_out_tongue_winking_eye:
