@@ -1,5 +1,5 @@
 import { component$ } from "@builder.io/qwik";
-import { useCounter } from "~/hooks/use-counter.hook";
+import { useCounter } from "~/hooks/use-counter";
 
 export default component$(() => {
   const { counter, increase, decrease } = useCounter(15);
