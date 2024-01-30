@@ -6,6 +6,7 @@ import {
   useLocation,
 } from "@builder.io/qwik-city";
 import { PokemonImage } from "~/components/pokemons/pokemon-image";
+import { Modal } from "~/components/shared";
 import { getSmallPokemons } from "~/helpers/get-small-pokemon";
 import type { SmallPokemon } from "~/interfaces";
 
@@ -66,6 +67,14 @@ export default component$(() => {
           </div>
         ))}
       </div>
+
+      <Modal>
+        <div q:slot="title">Pokemon name</div>
+        <div q:slot="content" class="flex flex-col items-center justify-center">
+          <PokemonImage id={1} isVisible />
+          <span>Asking to ChatGPT</span>
+        </div>
+      </Modal>
     </>
   );
 });
