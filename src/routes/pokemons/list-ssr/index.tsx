@@ -58,6 +58,7 @@ export default component$(() => {
   });
 
   // TODO: test async
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(({ track }) => {
     track(() => modalPokemon.name);
 
