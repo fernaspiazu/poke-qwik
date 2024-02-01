@@ -4,6 +4,7 @@ import {
   useComputed$,
   useSignal,
   useStore,
+  useVisibleTask$,
 } from "@builder.io/qwik";
 import {
   Link,
@@ -13,6 +14,7 @@ import {
 } from "@builder.io/qwik-city";
 import { PokemonImage } from "~/components/pokemons/pokemon-image";
 import { Modal } from "~/components/shared";
+import { getFunFactAboutPokemon } from "~/helpers/get-chat-gpt-response";
 import { getSmallPokemons } from "~/helpers/get-small-pokemon";
 import type { SmallPokemon } from "~/interfaces";
 
@@ -37,20 +39,35 @@ export default component$(() => {
   const location = useLocation();
 
   const modalVisible = useSignal(false);
-  const modalPokemos = useStore({
+  const modalPokemon = useStore({
     id: "",
     name: "",
   });
 
+  const chatGptPokemonFact = useSignal("");
+
   // Modal functions
   const showModal = $((id: string, name: string) => {
-    modalPokemos.id = id;
-    modalPokemos.name = name;
+    modalPokemon.id = id;
+    modalPokemon.name = name;
     modalVisible.value = true;
   });
 
   const closeModal = $(() => {
     modalVisible.value = false;
+  });
+
+  // TODO: test async
+  useVisibleTask$(({ track }) => {
+    track(() => modalPokemon.name);
+
+    chatGptPokemonFact.value = "";
+
+    if (modalPokemon.name.length > 0) {
+      getFunFactAboutPokemon(modalPokemon.name).then(
+        (resp) => (chatGptPokemonFact.value = resp),
+      );
+    }
   });
 
   const currentOffset = useComputed$<number>(() => {
@@ -101,10 +118,14 @@ export default component$(() => {
         size="md"
         persistent
       >
-        <div q:slot="title">{modalPokemos.name}</div>
+        <div q:slot="title">{modalPokemon.name}</div>
         <div q:slot="content" class="flex flex-col items-center justify-center">
-          <PokemonImage id={modalPokemos.id} isVisible />
-          <span>Asking to ChatGPT</span>
+          <PokemonImage id={modalPokemon.id} isVisible />
+          <span>
+            {chatGptPokemonFact.value === ""
+              ? "Asking to ChatGPT"
+              : chatGptPokemonFact.value}
+          </span>
         </div>
       </Modal>
     </>

@@ -33,6 +33,10 @@ pnpm run start
 
 That's it!
 
+## Env configuration
+
+Rename file `.env.template` by setting the required values
+
 ## Project Structure
 
 This project is using Qwik with [QwikCity](https://qwik.builder.io/qwikcity/overview/). QwikCity is just an extra set of tools on top of Qwik to make it easier to build a full site, including directory-based routing, layouts, and more.

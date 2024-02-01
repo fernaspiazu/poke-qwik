@@ -42,5 +42,8 @@
     "undici": "*",
     "vite": "^5.0.11",
     "vite-tsconfig-paths": "^4.2.1"
+  },
+  "dependencies": {
+    "openai": "^4.26.0"
   }
 }
