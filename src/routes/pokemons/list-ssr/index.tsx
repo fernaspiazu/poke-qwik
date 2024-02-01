@@ -1,4 +1,10 @@
-import { $, component$, useComputed$, useSignal } from "@builder.io/qwik";
+import {
+  $,
+  component$,
+  useComputed$,
+  useSignal,
+  useStore,
+} from "@builder.io/qwik";
 import {
   Link,
   type DocumentHead,
@@ -31,10 +37,15 @@ export default component$(() => {
   const location = useLocation();
 
   const modalVisible = useSignal(false);
+  const modalPokemos = useStore({
+    id: "",
+    name: "",
+  });
 
   // Modal functions
   const showModal = $((id: string, name: string) => {
-    console.log({ id, name });
+    modalPokemos.id = id;
+    modalPokemos.name = name;
     modalVisible.value = true;
   });
 
@@ -84,10 +95,15 @@ export default component$(() => {
         ))}
       </div>
 
-      <Modal showModal={modalVisible.value} closeFn={closeModal}>
-        <div q:slot="title">Pokemon name</div>
+      <Modal
+        showModal={modalVisible.value}
+        closeFn={closeModal}
+        size="md"
+        persistent
+      >
+        <div q:slot="title">{modalPokemos.name}</div>
         <div q:slot="content" class="flex flex-col items-center justify-center">
-          <PokemonImage id={1} isVisible />
+          <PokemonImage id={modalPokemos.id} isVisible />
           <span>Asking to ChatGPT</span>
         </div>
       </Modal>
