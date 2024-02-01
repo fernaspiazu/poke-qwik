@@ -71,9 +71,7 @@ export default component$(() => {
   });
 
   const currentOffset = useComputed$<number>(() => {
-    // const offsetString = location.url.searchParams.get('offset');
-    const offsetString = new URLSearchParams(location.url.search);
-    return Number(offsetString.get("offset") || 0);
+    return Number(location.url.searchParams.get("offset") || "0");
   });
 
   return (
@@ -123,7 +121,7 @@ export default component$(() => {
           <PokemonImage id={modalPokemon.id} isVisible />
           <span>
             {chatGptPokemonFact.value === ""
-              ? "Asking to ChatGPT"
+              ? "Asking to ChatGPT..."
               : chatGptPokemonFact.value}
           </span>
         </div>

@@ -23,7 +23,7 @@ export const PokemonImage = component$(
     });
 
     const imageUrl = useComputed$(() => {
-      if (id === "") return "";
+      if (id === "") return undefined;
       return backImage
         ? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/${id}.png`
         : `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
@@ -35,22 +35,24 @@ export const PokemonImage = component$(
         style={{ width: `${size}px`, height: `${size}px` }}
       >
         {!imageLoaded.value && <span>Cargando...</span>}
-        <img
-          src={imageUrl.value}
-          alt="Pokemon Sprite"
-          width={size}
-          height={size}
-          onLoad$={() => {
-            imageLoaded.value = true;
-          }}
-          class={[
-            {
-              hidden: !imageLoaded.value,
-              "brightness-0": !isVisible,
-            },
-            "transition-all",
-          ]}
-        />
+        {imageUrl.value && (
+          <img
+            src={imageUrl.value}
+            alt="Pokemon Sprite"
+            width={size}
+            height={size}
+            onLoad$={() => {
+              imageLoaded.value = true;
+            }}
+            class={[
+              {
+                hidden: !imageLoaded.value,
+                "brightness-0": !isVisible,
+              },
+              "transition-all",
+            ]}
+          />
+        )}
       </div>
     );
   },
