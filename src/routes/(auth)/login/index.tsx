@@ -1,38 +1,37 @@
-import { $, component$, useStore, useStylesScoped$ } from "@builder.io/qwik";
+import { component$, useStylesScoped$ } from "@builder.io/qwik";
 
 import styles from "./login.css?inline";
+import { Form, routeAction$ } from "@builder.io/qwik-city";
+
+export const useLoginUserAction = routeAction$((data, event) => {
+  const { email, password } = data;
+
+  if (email === "fe.aspiazu@gmail.com" && password === "123456") {
+    return {
+      success: true,
+      jwt: "This is my JWT",
+    };
+  } else {
+    return {
+      success: false,
+      message: "Invalid credentials",
+    };
+  }
+});
 
 export default component$(() => {
   useStylesScoped$(styles);
 
-  const formState = useStore({
-    email: "",
-    password: "",
-  });
-
-  const onSubmit = $(() => {
-    const { email, password } = formState;
-    console.log({ email, password });
-  });
+  const action = useLoginUserAction();
 
   return (
-    <form class="login-form" onSubmit$={onSubmit} preventdefault:submit>
+    <Form action={action} class="login-form mt-8">
       <div class="relative">
-        <input
-          onInput$={(ev) =>
-            (formState.email = (ev.target as HTMLInputElement).value)
-          }
-          name="email"
-          type="text"
-          placeholder="Email address"
-        />
+        <input name="email" type="text" placeholder="Email address" />
         <label for="email">Email Address</label>
       </div>
       <div class="relative">
         <input
-          onInput$={(ev) =>
-            (formState.password = (ev.target as HTMLInputElement).value)
-          }
           id="password"
           name="password"
           type="password"
@@ -44,7 +43,13 @@ export default component$(() => {
         <button>Ingresar</button>
       </div>
 
-      <code>{JSON.stringify(formState, undefined, 2)}</code>
-    </form>
+      <p>
+        {action.value?.success && (
+          <code>Authenticated. Token: {action.value.jwt}</code>
+        )}
+      </p>
+
+      <code>{JSON.stringify(action.value, undefined, 2)}</code>
+    </Form>
   );
 });
