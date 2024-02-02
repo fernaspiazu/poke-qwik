@@ -28,7 +28,7 @@ I'm not going to teach you how to clone a repo :stuck_out_tongue_winking_eye:
 # After you clone the repo, run
 npm install -g pnpm # in case you don't have pnpm
 pnpm install
-pnpm run start
+pnpm start
 ```
 
 That's it!
@@ -92,3 +92,13 @@ The production build will generate client and server modules by running both cli
 ```shell
 pnpm build # or `pnpm build`
 ```
+
+## Express Server
+
+This app has a minimal [Express server](https://expressjs.com/) implementation. After running a full build, you can preview the build using the command:
+
+```
+pnpm serve
+```
+
+Then visit [http://localhost:8080/](http://localhost:8080/)
