@@ -7,7 +7,7 @@ export default component$(() => {
   return (
     <>
       <span class="text-2xl">Counter</span>
-      <span class="text-7xl">{counter}</span>
+      <span class="text-7xl">{counter.value}</span>
 
       <div class="mt-2">
         <button onClick$={decrease} class="btn btn-primary mr-2">
