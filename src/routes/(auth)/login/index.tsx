@@ -3,14 +3,12 @@ import { component$, useStylesScoped$ } from "@builder.io/qwik";
 import styles from "./login.css?inline";
 import { Form, routeAction$ } from "@builder.io/qwik-city";
 
-export const useLoginUserAction = routeAction$((data, event) => {
+export const useLoginUserAction = routeAction$((data, { cookie, redirect }) => {
   const { email, password } = data;
 
   if (email === "fe.aspiazu@gmail.com" && password === "123456") {
-    return {
-      success: true,
-      jwt: "This is my JWT",
-    };
+    cookie.set("jwt", "This is my JWT", { secure: true, path: "/" });
+    throw redirect(302, "/");
   } else {
     return {
       success: false,
@@ -42,12 +40,6 @@ export default component$(() => {
       <div class="relative">
         <button>Ingresar</button>
       </div>
-
-      <p>
-        {action.value?.success && (
-          <code>Authenticated. Token: {action.value.jwt}</code>
-        )}
-      </p>
 
       <code>{JSON.stringify(action.value, undefined, 2)}</code>
     </Form>
