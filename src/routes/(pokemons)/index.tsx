@@ -22,8 +22,8 @@ export default component$(() => {
 
   return (
     <>
-      <span class="text-2xl">Buscador simple</span>
-      <span class="text-9xl">{pokemonId}</span>
+      <span class="text-2xl">Simple search</span>
+      <span class="text-9xl">{pokemonId.value}</span>
 
       <div onClick$={() => goToPokemon(pokemonId.value)}>
         <PokemonImage
@@ -35,16 +35,16 @@ export default component$(() => {
 
       <div class="mt-2">
         <button onClick$={prevPokemon} class="btn btn-primary mr-2">
-          Anterior
+          Previous
         </button>
         <button onClick$={nextPokemon} class="btn btn-primary mr-2">
-          Siguiente
+          Next
         </button>
         <button onClick$={toggleFromBack} class="btn btn-primary mr-2">
-          Voltear
+          Flip
         </button>
         <button onClick$={toggleVisible} class="btn btn-primary mr-2">
-          {isPokemonVisible.value ? "Esconder" : "Revelar"}
+          {isPokemonVisible.value ? "Hide" : "Show"}
         </button>
       </div>
     </>
