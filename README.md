@@ -1,4 +1,4 @@
-# [PokeQwik](https://poke-qwik-nando.up.railway.app/)
+# [PokeQwik](https://poke-qwik-nando.up.railway.app/) (:point_left: click here)
 
 [Free Qwik Course](https://cursos.devtalles.com/courses/qwik-introduccion) powered by DevTalles (in Spanish) to walk through the Qwik basics.
 
